@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 
-import React from 'react';
 import type {Node} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -15,6 +15,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Switch,
 } from 'react-native';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
@@ -35,7 +36,13 @@ const Section = ({children, title}): Node => {
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
+  // Repeated styles
   const backgroundStyle = "bg-neutral-300 dark:bg-slate-900"
+  const valueTitle = ""
+
+  // Boolean values that decide whether saturation or hue are shifted
+  const [useSaturation, setUseSaturation] = useState(true)
+  const [useHue, setUseHue] = useState(true)
 
   return (
     <SafeAreaView className={backgroundStyle}>
@@ -46,8 +53,44 @@ const App: () => Node = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         className={backgroundStyle}>
-        <View className="bg-white dark:bg-black">
-          <Section>
+        <View className="bg-white dark:bg-black ">
+          <View className="flex ">
+            <Text className="text-xl text-black dark:text-white">
+              Saturation
+            </Text>
+            <Switch 
+              value={useSaturation}
+              onValueChange={setUseSaturation}
+            />
+          </View>
+          <View className="flex"> 
+            <Text className="text-xl text-black dark:text-white">
+              Hue
+            </Text>
+            <Switch 
+              value={useHue}
+              onValueChange={setUseHue}
+            />
+          </View>
+          <Section title="Select Colors">
+            <Text className={valueTitle}>
+              Select Colors
+            </Text>
+          </Section>
+          <Section title="Number of Shades">
+            <Text className={valueTitle}>
+              Number of Shades
+            </Text>
+          </Section>
+          <Section title="Saturation Shift Multiplier">
+            <Text className={valueTitle}>
+              Saturation shift multiplier
+            </Text>
+          </Section>
+          <Section title="Hue Shift Multiplier">
+            <Text className={valueTitle}>
+              Hue shift multiplier
+            </Text>
           </Section>
         </View>
       </ScrollView>
