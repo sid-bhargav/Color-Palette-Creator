@@ -1,0 +1,24 @@
+{
+  "name": "color-palette-creator",
+  "version": "1.0.0",
+  "description": "Program to create color palettes for pixel art and other applications",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "start:dev": "npx electronmon --trace-warnings ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sid-bhargav/Color-Palette-Creator.git"
+  },
+  "author": "Siddharth Bhargav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sid-bhargav/Color-Palette-Creator/issues"
+  },
+  "homepage": "https://github.com/sid-bhargav/Color-Palette-Creator#readme",
+  "dependencies": {
+    "electron": "^22.2.0"
+  }
+}
