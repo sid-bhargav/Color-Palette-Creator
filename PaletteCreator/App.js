@@ -9,6 +9,7 @@
 import type {Node} from 'react';
 import React, {useState} from 'react';
 import {
+  StyleSheet,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -16,7 +17,24 @@ import {
   useColorScheme,
   View,
   Switch,
+  Pressable
 } from 'react-native';
+
+// Components
+import CheckBox from './CheckBox';
+import ColorBox from './ColorBox';
+import ColorPicker from './ColorPicker';
+
+const styles = StyleSheet.create({
+  colorBox: {
+    backgroundColor: '#CBD5E1',
+    borderColor: '#94A3B8',
+    borderWidth: 1.5,
+    borderRadius: 5,
+    width: 60,
+    height: 60,
+  },
+})
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -44,6 +62,8 @@ const App: () => Node = () => {
   const [useSaturation, setUseSaturation] = useState(true)
   const [useHue, setUseHue] = useState(true)
 
+  const [numInputColors, setNumInputColors] = useState(0)
+
   return (
     <SafeAreaView className={backgroundStyle}>
       <StatusBar
@@ -53,45 +73,33 @@ const App: () => Node = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         className={backgroundStyle}>
-        <View className="bg-white dark:bg-black ">
+        <View className="bg-white dark:bg-black">
           <View className="flex ">
+            <CheckBox 
+            isChecked={useSaturation}
+            onPress={() => setUseSaturation(!useSaturation)}
+            />
             <Text className="text-xl text-black dark:text-white">
               Saturation
             </Text>
-            <Switch 
-              value={useSaturation}
-              onValueChange={setUseSaturation}
-            />
+            <ColorBox color='#164E63'/>
           </View>
-          <View className="flex"> 
-            <Text className="text-xl text-black dark:text-white">
-              Hue
+          <Pressable style={[
+            styles.colorBox,
+            {
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(52, 52, 52, 0.0)',
+              borderColor: isDarkMode ? '#0891B2' : '#2563EB',
+            }
+            ]}
+            onPress={() => setNumInputColors(numInputColors + 1)}>
+            <Text className="text-5xl text-blue-600 dark:text-cyan-600 font-extralight">
+              {numInputColors}
             </Text>
-            <Switch 
-              value={useHue}
-              onValueChange={setUseHue}
-            />
-          </View>
-          <Section title="Select Colors">
-            <Text className={valueTitle}>
-              Select Colors
-            </Text>
-          </Section>
-          <Section title="Number of Shades">
-            <Text className={valueTitle}>
-              Number of Shades
-            </Text>
-          </Section>
-          <Section title="Saturation Shift Multiplier">
-            <Text className={valueTitle}>
-              Saturation shift multiplier
-            </Text>
-          </Section>
-          <Section title="Hue Shift Multiplier">
-            <Text className={valueTitle}>
-              Hue shift multiplier
-            </Text>
-          </Section>
+          </Pressable>
+          <ColorPicker />
         </View>
       </ScrollView>
     </SafeAreaView>
